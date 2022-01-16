@@ -13,6 +13,7 @@ import com.example.bestcatphotos.CatApi
 import com.example.bestcatphotos.model.CatPhoto
 import com.example.bestcatphotos.model.Message
 import com.example.bestcatphotos.model.Vote
+import com.example.bestcatphotos.model.VoteResponse
 import com.example.bestcatphotos.view.CatPhotoFragment
 import kotlinx.coroutines.launch
 import retrofit2.Call
@@ -56,18 +57,27 @@ class CatPhotoViewModel : ViewModel() {
 
 //        CatApi.retrofitService.makeVote(vote.imageId, vote.subId, vote.value)
 
-        CatApi.retrofitService.makeVote(vote.imageId, vote.subId, vote.value).enqueue(
-            object : Callback<Vote> {
-                override fun onFailure(call: Call<Vote>, t: Throwable) {
+//        CatApi.retrofitService.makeVote(vote.imageId, vote.subId, vote.value, "45831cb5-c900-48d4-b21d-b15ce3d1fc51", "application/json" ).enqueue(
+//        CatApi.retrofitService.makeVote(
+//            vote.imageId,
+//            vote.subId,
+//            vote.value//,
+////            "45831cb5-c900-48d4-b21d-b15ce3d1fc51",
+////            "application/json"
+//        ).enqueue(
+        CatApi.retrofitService.makeVote(vote).enqueue(
+            object : Callback<VoteResponse> {
+                override fun onFailure(call: Call<VoteResponse>, t: Throwable) {
                     onResult(null)
                     Log.v(TAG, t.message.toString())
                     Log.v(TAG, t.stackTraceToString())
-                    Log.v(TAG, t.printStackTrace().toString())
+//                    Log.v(TAG, t.printStackTrace().toString())
                 }
 
-                override fun onResponse(call: Call<Vote>, response: Response<Vote>) {
-                    val addedVote = response.body()
-                    Log.v(TAG, response.body().toString())
+                override fun onResponse(call: Call<VoteResponse>, response: Response<VoteResponse>) {
+                    val addedVote = vote
+                    Log.v(TAG, addedVote.toString())
+                    Log.v(TAG, response.toString())
                     onResult(addedVote)
                 }
             }
@@ -108,7 +118,6 @@ class CatPhotoViewModel : ViewModel() {
 //            try {
 //                CatApi.retrofitService.makeVote(vote)
 //                CatPhotoFragment().showPositive()
-
 
 
 //                CatApi.retrofitService
