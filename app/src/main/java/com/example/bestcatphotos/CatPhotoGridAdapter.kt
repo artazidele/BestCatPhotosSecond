@@ -66,8 +66,8 @@ class CatPhotoGridAdapter :
 //            Log.v(ContentValues.TAG, "POSITIVE")
 
 //            val vote = Vote("test2", "asf2", 1)
-            val vote = Vote("asf2","test2",  1)
-//            val vote = Vote(catPhoto.id,"test2",  1)
+//            val vote = Vote("asf2","test2",  1)
+            val vote = Vote(catPhoto.id,"test2",  1)
             CatPhotoViewModel().makePositiveVote(vote) {
                 if (it?.imageId != null) {
                     Log.v(ContentValues.TAG, "POSITIVE")
